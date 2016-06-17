@@ -9,7 +9,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.OpenableColumns;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -24,12 +24,10 @@ import java.util.Locale;
 
 
 public class MainActivity extends Activity {
-
     private static final int RESULT_CODE_COMPRESS_VIDEO = 3;
     private static final String TAG = "MainActivity";
     private EditText editText;
     private ProgressBar progressBar;
-//    private File tempFile;
 
     public static final String APP_DIR = "VideoCompressor";
 
@@ -69,34 +67,20 @@ public class MainActivity extends Activity {
 
     }
 
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     protected void onActivityResult(int reqCode, int resCode, Intent data) {
         if (resCode == Activity.RESULT_OK && data != null) {
-
             Uri uri = data.getData();
-
             if (reqCode == RESULT_CODE_COMPRESS_VIDEO) {
                 if (uri != null) {
                     Cursor cursor = getContentResolver().query(uri, null, null, null, null, null);
-
                     try {
                         if (cursor != null && cursor.moveToFirst()) {
-
-                            String displayName = cursor.getString(
-                                    cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                            Log.i(TAG, "Display Name: " + displayName);
-
-                            int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
-                            String size = null;
-                            if (!cursor.isNull(sizeIndex)) {
-                                size = cursor.getString(sizeIndex);
-                            } else {
-                                size = "Unknown";
-                            }
-                            Log.i(TAG, "Size: " + size);
-//                            tempFile = FileUtils.saveTempFile(displayName, this, uri);
+                            String path=cursor.getString(cursor.getColumnIndex(MediaStore.Video.VideoColumns.DATA));
+                            editText.setText(path);
+                        }else {
                             editText.setText(uri.getPath());
-
                         }
                     } finally {
                         if (cursor != null) {
@@ -108,26 +92,19 @@ public class MainActivity extends Activity {
         }
     }
 
-//    private void deleteTempFile(){
-//        if(tempFile != null && tempFile.exists()){
-//            tempFile.delete();
-//        }
-//    }
+
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-//        deleteTempFile();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        deleteTempFile();
     }
 
     public void compress(View v) {
-//        MediaController.getInstance().scheduleVideoConvert(tempFile.getPath());
         try2CreateCompressDir();
         String outPath=Environment.getExternalStorageDirectory()
                         + File.separator

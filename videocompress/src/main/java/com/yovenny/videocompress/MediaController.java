@@ -221,7 +221,6 @@ public class MediaController {
 
     @TargetApi(16)
     public boolean convertVideo(final String path,String outPath) {
-
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         retriever.setDataSource(path);
         String width = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);
@@ -387,8 +386,8 @@ public class MediaController {
                             MediaFormat outputFormat = MediaFormat.createVideoFormat(MIME_TYPE, resultWidth, resultHeight);
                             outputFormat.setInteger(MediaFormat.KEY_COLOR_FORMAT, colorFormat);
                             outputFormat.setInteger(MediaFormat.KEY_BIT_RATE, bitrate != 0 ? bitrate : 921600);
-                            outputFormat.setInteger(MediaFormat.KEY_FRAME_RATE, 25);
-                            outputFormat.setInteger(MediaFormat.KEY_I_FRAME_INTERVAL, 15);//10
+                            outputFormat.setInteger(MediaFormat.KEY_FRAME_RATE, 30);
+                            outputFormat.setInteger(MediaFormat.KEY_I_FRAME_INTERVAL, 20);//10
                             if (Build.VERSION.SDK_INT < 18) {
                                 outputFormat.setInteger("stride", resultWidth + 32);
                                 outputFormat.setInteger("slice-height", resultHeight);
@@ -657,8 +656,7 @@ public class MediaController {
             return false;
         }
         didWriteData(true, error);
-
-        inputFile.delete();
+//        inputFile.delete();
         return true;
     }
 }

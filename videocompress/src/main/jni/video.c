@@ -66,7 +66,7 @@ int isSemiPlanarYUV(int colorFormat) {
     }
 }
 
-JNIEXPORT int Java_com_lalongooo_videocompressor_video_CovertUtil_convertVideoFrame(JNIEnv *env, jclass class, jobject src, jobject dest, int destFormat, int width, int height, int padding, int swap) {
+JNIEXPORT int Java_com_yovenny_videocompress_CovertUtil_convertVideoFrame(JNIEnv *env, jclass class, jobject src, jobject dest, int destFormat, int width, int height, int padding, int swap) {
     if (!src || !dest || !destFormat) {
         return 0;
     }
