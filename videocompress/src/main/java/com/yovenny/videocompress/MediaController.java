@@ -386,8 +386,8 @@ public class MediaController {
                             MediaFormat outputFormat = MediaFormat.createVideoFormat(MIME_TYPE, resultWidth, resultHeight);
                             outputFormat.setInteger(MediaFormat.KEY_COLOR_FORMAT, colorFormat);
                             outputFormat.setInteger(MediaFormat.KEY_BIT_RATE, bitrate != 0 ? bitrate : 921600);
-                            outputFormat.setInteger(MediaFormat.KEY_FRAME_RATE, 30);
-                            outputFormat.setInteger(MediaFormat.KEY_I_FRAME_INTERVAL, 20);//10
+                            outputFormat.setInteger(MediaFormat.KEY_FRAME_RATE, 30);//origin 25
+                            outputFormat.setInteger(MediaFormat.KEY_I_FRAME_INTERVAL, 20);//origin 10
                             if (Build.VERSION.SDK_INT < 18) {
                                 outputFormat.setInteger("stride", resultWidth + 32);
                                 outputFormat.setInteger("slice-height", resultHeight);
