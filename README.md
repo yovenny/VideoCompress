@@ -17,6 +17,5 @@
 ```
 
 ## Log
-
-- add api<18 `convertVideoFrame` jni support
 **2016-6-22**
+- add api<18 `convertVideoFrame` jni support
